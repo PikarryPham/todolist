@@ -1,0 +1,13 @@
+Already features:
+1. Add Todos
+2. Search Todos / Keyboard Support Key Enter (To add a Todo/Task) and Right > arrow (To Search ToDo)
+3. Edit / Update
+4. Delete | Clear One by One Tasks Or All at Once
+5. Mark Completed / Uncompleted
+
+Need to do features:
+6. Login 
+7. Logout
+8. Registration
+9. Show All/Uncompleted/Completed Tasks (update)
+10. Downgrade/Upgrade Plan
