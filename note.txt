@@ -11,3 +11,5 @@ Need to do features:
 8. Registration
 9. Show All/Uncompleted/Completed Tasks (update)
 10. Downgrade/Upgrade Plan
+
+All necessary information is saved in local storage. So, no need to worry about your data.

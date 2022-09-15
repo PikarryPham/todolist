@@ -31,6 +31,7 @@ if (isLogined) {
   login_text.innerHTML = "Logout";
 } else {
   window.location.href = "login.html";
+  localStorage.setItem("isLogined",false);
 }
 
 const getPlant = (plan) => {
@@ -45,7 +46,7 @@ if (getName) {
   user = accounts.filter((e) => e.name == getName)[0];
 }
 
-register_text.innerHTML = user.plan;
+register_text.innerHTML = "Plan " + user.plan;
 
 
 class Task {
@@ -60,24 +61,28 @@ class Task {
 
                 <div class="action btns ${
                   task.state === "show"
-                    ? "mt-2 d-flex justify-content-between align-items-center"
+                    ? "gridTemplate"
                     : "d-none"
                 } ${
         task.completed === "true" ? "text-decoration-line-through" : "text-dark"
       }">
-                    ${task.title}
-                    <br/>
-                    create at: ${this.unixTimeToHumanReadable(task.create_at)} 
-                    update at: ${this.unixTimeToHumanReadable(task.update_at)}
-                    <button type="button" class="btn btn-sm btn-success is__completed" onclick="Task.todoCompleted('${
-                      task.id
-                    }')"><i class="fa-solid fa-circle-check"></i></button>
-                    <button type="button" class="btn btn-sm btn-primary edit" onclick="Task.update('${
-                      task.id
-                    }')"><i class="fa-solid fa-pen-to-square"></i></button>
-                    <button type="button" class="btn btn-sm btn-danger ms-1 delete" onclick="Task.delete('${
-                      task.id
-                    }')"><i class="fa-solid fa-trash-can"></i></button>
+                    
+                    <h4>${task.title}</h4>
+                    <div class="d-flex justify-content-between align-items-center" style="margin-bottom:1rem">
+                        <span style="color:green">create at: ${this.unixTimeToHumanReadable(task.create_at)} </span>
+                        update at: ${this.unixTimeToHumanReadable(task.update_at)}
+                    </div>
+                    <div class="d-flex justify-content-left align-items-center">
+                        <button style="margin-right: 1rem" type="button" class="btn btn-sm btn-success is__completed" onclick="Task.todoCompleted('${
+                          task.id
+                        }')"><i class="fa-solid fa-circle-check"></i></button>
+                        <button style="margin-right: 1rem" type="button" class="btn btn-sm btn-primary edit" onclick="Task.update('${
+                          task.id
+                        }')"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button style="margin-right: 1rem" type="button" class="btn btn-sm btn-danger ms-1 delete" onclick="Task.delete('${
+                          task.id
+                        }')"><i class="fa-solid fa-trash-can"></i></button>
+                    </div>
                 </div> 
 
                 <div class="task-item ${
