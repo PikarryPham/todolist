@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -31,23 +31,48 @@
                     </div>
                     <div class="card-body">
                         <form action="" class="form d-flex justify-content-between">
-                            <input type="text" id="task" class="form-control" placeholder="What's on your Mind?"
-                                title="Write a Task..." />
+                            <input type="text" id="title" class="form-control" placeholder="What's on your Mind?"
+                                title="Write a summary" />
                             <div class="d-flex">
                                 <button type="button" id="create-task" class="btn btn-primary ms-2"
                                     title="Create">Create</button>
                                 <button type="button" id="search-task" class="btn btn-success ms-2"
                                     title="Search">Search</button>
+                                <div style="padding-left: 5px;">
+                                    <div class="form-check">
+                                        <input class="form-check-input" id="completed" type="radio"
+                                            name="flexRadioDefault">
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            Completed
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" id="uncompleted" type="radio"
+                                            name="flexRadioDefault">
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            Uncompleted
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" id="all" type="radio" name="flexRadioDefault"
+                                            checked>
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            All
+                                        </label>
+                                    </div>
+
+                                </div>
                             </div>
                         </form>
-
+                        <textarea id="task" style="width: 100%; margin-top: 15px;"></textarea>
                         <div id="tasks"></div>
-
                         <div id="search"></div>
                     </div>
                 </div>
                 <div class="error"></div>
                 <div class="clear__all btn btn-danger btn-lg d-none">Clear All</div>
+
+                <button class="btn btn-secondary" id="request_demo">Request Demo</button>
             </div>
         </div>
     </div>

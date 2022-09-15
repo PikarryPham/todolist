@@ -11,10 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="/signup.css">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="signup.css">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
         integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -68,7 +65,8 @@
                         <div class="form-outline mb-3">
                             <label class="form-label" for="form3Example4">Password</label>
                             <input type="password" id="form3Example4" class="form-control form-control-lg"
-                                placeholder="Enter password" />                        </div>
+                                placeholder="Enter password" />
+                        </div>
 
                         <div class="d-flex justify-content-between align-items-center">
                             <!-- Checkbox -->
@@ -83,7 +81,8 @@
 
                         <div class="text-center text-lg-start mt-4 pt-2">
                             <button type="button" class="btn btn-primary btn-lg" id="signinreal"
-                                style="padding-left: 2.5rem; padding-right: 2.5rem;"><a href="index.html" style="text-decoration: none; color: white">Login</a></button>
+                                style="padding-left: 2.5rem; padding-right: 2.5rem;"><a href="index.html"
+                                    style="text-decoration: none; color: white">Login</a></button>
                             <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="./register.html"
                                     class="link-danger">Register</a></p>
                         </div>
@@ -92,32 +91,58 @@
                 </div>
             </div>
         </div>
-        <div
-            class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
-            <!-- Copyright -->
-            <div class="text-white mb-3 mb-md-0">
-                Copyright © 2022. All rights reserved.
-            </div>
-            <!-- Copyright -->
-
-            <!-- Right -->
-            <div>
-                <a href="#!" class="text-white me-4">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-                <a href="#!" class="text-white me-4">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="#!" class="text-white me-4">
-                    <i class="fab fa-google"></i>
-                </a>
-                <a href="#!" class="text-white">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-            </div>
-            <!-- Right -->
-        </div>
     </section>
+
+    <script>
+        function ValidateEmail(mail) {
+            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+                return (true)
+            }
+            alert("You have entered an invalid email address!")
+            return (false)
+        }
+
+        let accounts = [];
+        const getAccounts = localStorage.getItem("accounts");
+
+        if (getAccounts) accounts = JSON.parse(getAccounts);
+
+        let register_btn = document.getElementById("signinreal")
+        let email = document.getElementById("form3Example3")
+
+        let password = document.getElementById("form3Example4")
+        let plan = document.getElementById("plan")
+
+        register_btn.addEventListener("click", () => {
+
+
+            if (password.value.length < 6) {
+                alert("Password must have at least 6 characters.")
+                return
+            }
+            if (!ValidateEmail(email)) {
+                return
+            }
+
+            const checkEmailAdd = obj => obj.email === email.value;
+            const checkPassword = obj => obj.password === password.value;
+
+            if (accounts.some(checkEmailAdd) && accounts.some(checkPassword)) {
+
+                localStorage.setItem("accounts", JSON.stringify(accounts))
+                localStorage.setItem("isLogined", true)
+                localStorage.setItem("email", email.value)
+
+                window.location.href = "index.html"
+            } else {
+                alert("Sai tài khoản hoặc mật khẩu")
+                return
+            }
+
+
+        })
+    </script>
+
 </body>
 
 </html>
