@@ -13,3 +13,7 @@ Need to do features:
 10. Downgrade/Upgrade Plan
 
 All necessary information is saved in local storage. So, no need to worry about your data.
+
+# LƯU Ý LỚN:
+- Code này hiện tại vẫn chưa linh hoạt, tức là, nó chỉ đang lấy giá trị mặc định của người dùng đầu tiên trong mảng accounts
+- (accounts[0]). Trong TH nếu muốn test người dùng mới thì phải clear cache thật kỹ, sau đó mới được phép test lại

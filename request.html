@@ -77,11 +77,15 @@
         });
 
         function trackEventRequestDemo(infor) {
+            // get the value of plan to set super property
+            // Thật ra chỉ cần đăng ký 1 lần thôi, nhưng để đảm bảo tính chính xác (tức là event nào cũng có), mình sẽ đăng ký ở mỗi file html nào có event
+            let accounts = [];
+            const getAccounts = localStorage.getItem("accounts");
+            if (getAccounts) accounts = JSON.parse(getAccounts);
+            mixpanel.register({
+                "Plan Type": accounts[0].plan
+            });
             let username = localStorage.getItem("name");
-            // let accounts = JSON.parse(data);
-            // console.log(accounts);
-            // console.log(accounts.name);
-            console.log(username);
             mixpanel.identify(username);
             mixpanel.track('Demo Requested');
             mixpanel.people.set({
@@ -199,7 +203,7 @@
                 }
                 localStorage.setItem("request_demo", JSON.stringify(requestDemo))
                 trackEventRequestDemo(requestDemo);
-                // window.location.href = "index.html";
+                window.location.href = "index.html";
             }
         })
     </script>

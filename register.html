@@ -84,7 +84,7 @@
         });
 
         function signUp(user) {
-            //console.log(user.username);
+            // Thật ra chỉ cần đăng ký 1 lần thôi, nhưng để đảm bảo tính chính xác (tức là event nào cũng có), mình sẽ đăng ký ở mỗi file html nào có event
             mixpanel.register({
                 "Plan Type": user.plan
             });
@@ -95,7 +95,7 @@
                 "$name": user.username,
                 "$email": user.email,
                 "Registration Method": "Basic",
-                "Registration Date": new Date()
+                "Registration Date": new Date().toISOString()
             });
         }
 

@@ -15,7 +15,7 @@ if (getAccounts) accounts = JSON.parse(getAccounts);
 const input = document.getElementById("task"),
   request_demo = document.getElementById("request_demo")
 register_btn = document.getElementById("signupreal"),
-  register_text = document.getElementById("registerClass"),
+  register_text = document.getElementById("registerClass"), //text plan + free/premium ở file index
   createBtn = document.getElementById("create-task"),
   search_btn = document.getElementById("search-task"),
   refresh = document.getElementById("refresh"),
@@ -31,13 +31,14 @@ if (isLogined) {
   login_text.innerHTML = "Logout";
 } else {
   window.location.href = "login.html";
-  localStorage.setItem("isLogined",false);
+  localStorage.setItem("isLogined", false);
 }
 
 const getPlant = (plan) => {
 
-  if (plan == "free") return "premium";
-  else return "free";
+  if (plan == "free") {
+    return "premium";
+  } else return "free";
 };
 
 const getName = localStorage.getItem("name");
@@ -373,18 +374,26 @@ function clearAll() {
 clear__all.addEventListener("click", clearAll);
 
 register_text.addEventListener("click", () => {
+  //Kiểm tra xem nên dùng hàm downgrade hay upgrade. Xét nếu đang là free user mà bấm thì sẽ sài upgrade và ngược lại
+  let accounts = [];
+  const getAccounts = localStorage.getItem("accounts");
+  if (getAccounts) accounts = JSON.parse(getAccounts);
+  let currentPlan = accounts[0].plan;
 
+  if(currentPlan == 'free'){
+    accountUpgraded();
+  }
+  else {
+    accountDowngraded();
+  }
 
   accounts.map((o) => {
     if (o.name == user.name) {
-
       o.plan = getPlant(o.plan)
     }
-
   });
   localStorage.setItem("accounts", JSON.stringify(accounts))
   location.reload();
-
 });
 
 login_text.addEventListener("click", () => {

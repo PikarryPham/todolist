@@ -76,9 +76,32 @@
             debug: true
         });
 
-        function createdTask(task) {
-            mixpanel.track('Event Name', {
+        function accountUpgraded (){
+            let accounts = [];
+            const getAccounts = localStorage.getItem("accounts");
+            if (getAccounts) accounts = JSON.parse(getAccounts);
+            mixpanel.identify(accounts[0].name);
+            // get the value of plan to set super property
+            mixpanel.register({ // Super Property
+                "Plan Type": 'premium'
+            });
+            mixpanel.track('Account Upgrade');
+            mixpanel.people.set({
+                'Plan Type': 'premium'
+            });
+        }
 
+        function accountDowngraded (){
+            let accounts = [];
+            const getAccounts = localStorage.getItem("accounts");
+            if (getAccounts) accounts = JSON.parse(getAccounts);
+            mixpanel.identify(accounts[0].name);
+            mixpanel.register({ // Super Property
+                "Plan Type": 'free'
+            });
+            mixpanel.track('Account Downgrade');
+            mixpanel.people.set({
+                'Plan Type': 'free'
             });
         }
     </script>
@@ -149,7 +172,7 @@
         </div>
     </div>
 
-    <script src="./script.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>

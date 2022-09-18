@@ -88,9 +88,28 @@
         });
 
         function signIn(username) {
-            console.log(username);
+            // get the value of plan to set super property
+            // Thật ra chỉ cần đăng ký 1 lần thôi, nhưng để đảm bảo tính chính xác (tức là event nào cũng có), mình sẽ đăng ký ở mỗi file html nào có event
+            let accounts = [];
+            const getAccounts = localStorage.getItem("accounts");
+            const isLogined = localStorage.getItem("isLogined") == true ? false : true
+            if (getAccounts) accounts = JSON.parse(getAccounts);
+
+            mixpanel.register({ // Super Property
+                "Plan Type": accounts[0].plan
+            });
             mixpanel.identify(username);
-            mixpanel.track('Sign In');
+            mixpanel.track('Sign In', {
+                "Guest Login": false
+            });
+            mixpanel.people.set_once({
+                'First Login': new Date()
+            });
+            mixpanel.people.set({
+                'Last Login': new Date().toISOString()
+            });
+            //Incrementing Numeric Properties, the default is to increment by 1
+            mixpanel.people.increment("Number Of Logins");
         }
     </script>
 </head>
@@ -187,8 +206,6 @@
             const checkUsername = obj => obj.name === name.value;
 
             const checkPassword = obj => obj.password === password.value;
-            console.log(checkPassword)
-            console.log(checkUsername)
 
             if (accounts.some(checkUsername) && accounts.some(checkPassword)) {
 
