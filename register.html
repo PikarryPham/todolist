@@ -83,15 +83,29 @@
             debug: true
         });
 
-        function signUp(task) {
-            mixpanel.track('Sign Up', {
-
+        function signUp(user) {
+            //console.log(user.username);
+            mixpanel.register({
+                "Plan Type": user.plan
             });
+            mixpanel.alias(user.username);
+            mixpanel.track('Sign Up');
+            mixpanel.people.set({
+                "Plan Type": user.plan,
+                "$name": user.username,
+                "$email": user.email,
+                "Registration Method": "Basic",
+                "Registration Date": new Date()
+            });
+        }
+
+        function loadPage() {
+            mixpanel.track('Sign Up Page Viewed');
         }
     </script>
 </head>
 
-<body>
+<body onload="loadSignUp()">
     <section class="vh-100">
         <div class="container-fluid h-custom">
             <div class="row d-flex justify-content-center align-items-center h-100">
@@ -182,6 +196,13 @@
         let password = document.getElementById("form3Example5")
         let plan = document.getElementById("plan")
 
+        loadPage();
+
+        function loadSignUp() {
+            //alert("Page is loaded");
+        }
+
+
         register_btn.addEventListener("click", () => {
 
             if (!ValidateEmail(email.value)) {
@@ -209,7 +230,6 @@
                 return
             }
 
-
             accounts.push({
                 email: email.value,
                 name: name.value,
@@ -217,13 +237,22 @@
                 plan: plan.value
             });
 
+            const accountsJSON = {
+                email: email.value,
+                username: name.value,
+                password: password.value,
+                plan: plan.value,
+                isRegistered: true
+            }
             localStorage.setItem("accounts", JSON.stringify(accounts))
             localStorage.setItem("isLogined", true)
             // localStorage.setItem("isRegistered",true)
             localStorage.setItem("name", name.value)
             // localStorage.setItem("email",email.value)
+            console.log(accountsJSON);
+            signUp(accountsJSON);
 
-            window.location.href = "index.html"
+            window.location.href = "login.html"
         })
     </script>
 </body>

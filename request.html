@@ -77,14 +77,21 @@
         });
 
         function trackEventRequestDemo(infor) {
-            mixpanel.track('Demo Requested', {
+            let username = localStorage.getItem("name");
+            // let accounts = JSON.parse(data);
+            // console.log(accounts);
+            // console.log(accounts.name);
+            console.log(username);
+            mixpanel.identify(username);
+            mixpanel.track('Demo Requested');
+            mixpanel.people.set({
                 'First Name': infor.firstName,
                 'Last Name': infor.lastName,
                 'Request Demo Date': infor.date,
                 'Business Email': infor.businessEmail,
                 'Company Size': infor.companySize,
                 'Company Name': infor.companyName
-            });
+            })
         }
     </script>
 </head>
@@ -192,7 +199,7 @@
                 }
                 localStorage.setItem("request_demo", JSON.stringify(requestDemo))
                 trackEventRequestDemo(requestDemo);
-                window.location.href = "index.html";
+                // window.location.href = "index.html";
             }
         })
     </script>
