@@ -76,6 +76,16 @@
             debug: true
         });
 
+        function createATask(task) {
+            mixpanel.track('Task Created',{
+                'Task Content': task.taskContent,
+                'Task ID': task.taskID,
+                'Task Title': task.taskTitle,
+                'Task State': task.taskState,
+                'Task Status': task.taskCompletedStatus,
+                'Task Date': task.create_at
+            })
+        }
         function accountUpgraded (){
             let accounts = [];
             const getAccounts = localStorage.getItem("accounts");

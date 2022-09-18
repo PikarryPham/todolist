@@ -12,18 +12,20 @@ const getAccounts = localStorage.getItem("accounts");
 
 if (getAccounts) accounts = JSON.parse(getAccounts);
 
+let countForTaskID = 1;
+
 const input = document.getElementById("task"),
   request_demo = document.getElementById("request_demo")
-register_btn = document.getElementById("signupreal"),
+  register_btn = document.getElementById("signupreal"),
   register_text = document.getElementById("registerClass"), //text plan + free/premium ở file index
   createBtn = document.getElementById("create-task"),
   search_btn = document.getElementById("search-task"),
   refresh = document.getElementById("refresh"),
   clear__all = document.querySelector(".clear__all");
-login_text = document.querySelector(".loginClass");
-login_btn = document.querySelector(".signinreal");
-title = document.getElementById("title");
-filters = document.querySelectorAll(".form-check-input");
+  login_text = document.querySelector(".loginClass");
+  login_btn = document.querySelector(".signinreal");
+  title = document.getElementById("title");
+  filters = document.querySelectorAll(".form-check-input");
 
 
 let isLogined = localStorage.getItem("isLogined") === "true";
@@ -53,7 +55,7 @@ register_text.innerHTML = "Plan " + user.plan;
 class Task {
   // display tasks
   static display() {
-    console.log(tasks);
+    // console.log(tasks);
     const tasks_container = document.getElementById("tasks");
     let _tasks = "";
     tasks.forEach((task, index) => {
@@ -117,6 +119,18 @@ class Task {
       create_at: Math.round(+new Date() / 1000),
       update_at: Math.round(+new Date() / 1000),
     });
+    const currentTask = {
+      taskID: generateRandomId,
+      taskContent: task,
+      taskTitle: title,
+      taskCompletedStatus: 'false',
+      taskState: 'show',
+      create_at: Math.round(+new Date() / 1000),
+      update_at: Math.round(+new Date() / 1000),
+    }
+    // countForTaskID = countForTaskID + 1;
+    createATask(currentTask);
+    // console.log(currentTask);
     this.display();
   }
 
