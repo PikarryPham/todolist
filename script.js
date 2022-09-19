@@ -16,16 +16,16 @@ let countForTaskID = 1;
 
 const input = document.getElementById("task"),
   request_demo = document.getElementById("request_demo")
-  register_btn = document.getElementById("signupreal"),
+register_btn = document.getElementById("signupreal"),
   register_text = document.getElementById("registerClass"), //text plan + free/premium ở file index
   createBtn = document.getElementById("create-task"),
   search_btn = document.getElementById("search-task"),
   refresh = document.getElementById("refresh"),
   clear__all = document.querySelector(".clear__all");
-  login_text = document.querySelector(".loginClass");
-  login_btn = document.querySelector(".signinreal");
-  title = document.getElementById("title");
-  filters = document.querySelectorAll(".form-check-input");
+login_text = document.querySelector(".loginClass");
+login_btn = document.querySelector(".signinreal");
+title = document.getElementById("title");
+filters = document.querySelectorAll(".form-check-input");
 
 
 let isLogined = localStorage.getItem("isLogined") === "true";
@@ -137,11 +137,15 @@ class Task {
   static todoCompleted(task) {
     tasks.forEach((item) => {
       if (`${item.id}` === task) {
-        if (item.completed === "false") item.completed = "true";
-        else item.completed = "false";
+        if (item.completed === "false") {
+          markTaskAsCompleted(task);
+          item.completed = "true"
+        } else {
+          markTaskAsUncompleted(task);
+          item.completed = "false"
+        };
       }
     });
-
     this.display();
   }
 
@@ -175,7 +179,7 @@ class Task {
               item.name = input_value;
               item.title = title_value;
               item.update_at = Math.round(+new Date() / 1000);
-              updateATask(task,input_value,title_value);
+              updateATask(task, input_value, title_value);
               this.display();
             } else {
               showError(".error", "Edit Field Cannot be Empty!");
@@ -194,7 +198,12 @@ class Task {
   }
 
   // search task
-  static search(task) {
+  static search(task) { //task means "search_value"
+    let matchResult = 0;
+    let tasks = [];
+    const getTaskList = localStorage.getItem("tasks");
+    if (getTaskList) tasks = JSON.parse(getTaskList);
+
 
     tasks = tasks.filter((item) =>
       item.title.toLowerCase() === task.toLowerCase() ?
@@ -209,6 +218,14 @@ class Task {
         item.state = "hide"
       });
     }
+
+    //get number of matched results, which have state = 'show'
+    for (const obj of tasks) {
+      console.log(obj.id + 'has state is ' + obj.state);
+      if (obj.state === 'show') matchResult++;
+    }
+    searchTask(task,matchResult);
+    console.log('Ket qua la co ' + matchResult + ' co state la show.')
     this.display();
   }
 
