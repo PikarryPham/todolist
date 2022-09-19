@@ -125,12 +125,11 @@ class Task {
       taskTitle: title,
       taskCompletedStatus: 'false',
       taskState: 'show',
-      create_at: Math.round(+new Date() / 1000),
-      update_at: Math.round(+new Date() / 1000),
+      create_at: new Date().toISOString(),
+      update_at: new Date().toISOString(),
     }
     // countForTaskID = countForTaskID + 1;
     createATask(currentTask);
-    // console.log(currentTask);
     this.display();
   }
 
@@ -176,6 +175,7 @@ class Task {
               item.name = input_value;
               item.title = title_value;
               item.update_at = Math.round(+new Date() / 1000);
+              updateATask(task,input_value,title_value);
               this.display();
             } else {
               showError(".error", "Edit Field Cannot be Empty!");
@@ -188,13 +188,8 @@ class Task {
 
   // delete task
   static delete(task) {
+    deleteATask(task); //task nay la Task.id truyen tu UI
     tasks = tasks.filter((item) => `${item.id}` !== task);
-
-    // tasks.forEach((item, index) => {
-    //     if(`${item.id}` === task) {
-    //         tasks.splice(index, 1)
-    //     }
-    // });
     this.display();
   }
 
@@ -394,10 +389,9 @@ register_text.addEventListener("click", () => {
   if (getAccounts) accounts = JSON.parse(getAccounts);
   let currentPlan = accounts[0].plan;
 
-  if(currentPlan == 'free'){
+  if (currentPlan == 'free') {
     accountUpgraded();
-  }
-  else {
+  } else {
     accountDowngraded();
   }
 
