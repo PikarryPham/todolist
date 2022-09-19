@@ -92,13 +92,15 @@ body {
     pointer-events: none;
 }
 
-.gridTemplate{
+.gridTemplate {
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: 25% 25% 25% 25%;
 }
 
-.is__completed, .delete, .edit {
+.is__completed,
+.delete,
+.edit {
     width: 45px;
     height: 45px;
 }
@@ -124,8 +126,8 @@ body {
     transform: rotate(90deg);
 }
 
-.authentication{
-    display:flex;
+.authentication {
+    display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1.25rem;
@@ -135,6 +137,43 @@ body {
     width: 30%;
     display: block;
     margin: 0 auto;
+}
+
+.star-container {
+    display: flex;
+    width: 160px;
+    flex-direction: row-reverse;
+}
+
+.star {}
+
+.star:before {
+    content: "\f005";
+    font-family: fontAwesome;
+    font-size: 30px;
+    position: relative;
+    display: block;
+    color: #aaa;
+}
+.rating {
+    font-size: 1.5rem;
+}
+
+.star:after {
+    content: "\f005";
+    font-family: fontAwesome;
+    position: absolute;
+    top: 82.3px;
+    font-size: 30px;
+    color: gold;
+    opacity: 0;
+}
+
+.star:hover:after,
+.star:hover~.star:after,
+.star.star__checked:after,
+.star.star__checked~.star:after {
+    opacity: 1;
 }
 
 @keyframes error {

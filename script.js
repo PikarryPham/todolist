@@ -16,16 +16,17 @@ let countForTaskID = 1;
 
 const input = document.getElementById("task"),
   request_demo = document.getElementById("request_demo")
-register_btn = document.getElementById("signupreal"),
+  give_feedback = document.getElementById("give_feedback");
+  register_btn = document.getElementById("signupreal"),
   register_text = document.getElementById("registerClass"), //text plan + free/premium ở file index
   createBtn = document.getElementById("create-task"),
   search_btn = document.getElementById("search-task"),
   refresh = document.getElementById("refresh"),
   clear__all = document.querySelector(".clear__all");
-login_text = document.querySelector(".loginClass");
-login_btn = document.querySelector(".signinreal");
-title = document.getElementById("title");
-filters = document.querySelectorAll(".form-check-input");
+  login_text = document.querySelector(".loginClass");
+  login_btn = document.querySelector(".signinreal");
+  title = document.getElementById("title");
+  filters = document.querySelectorAll(".form-check-input");
 
 
 let isLogined = localStorage.getItem("isLogined") === "true";
@@ -459,4 +460,8 @@ refresh.addEventListener("click", (e) => {
 
 request_demo.addEventListener("click", (e) => {
   window.location.href = "request.html";
+})
+
+give_feedback.addEventListener("click", (e) => {
+  window.location.href = "feedback.html";
 })

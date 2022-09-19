@@ -87,6 +87,10 @@
             debug: true,
         });
 
+        function filterTask(){
+
+        }
+
         function searchTask(keyword, numberOfMatchResult){
             let accounts = [];
             const getAccounts = localStorage.getItem("accounts");
@@ -242,6 +246,16 @@
                     <span><a class="registerClass" id="registerClass" href="#">Sign Up</a></span>
                     <span><a class="loginClass" id="loginClass" href="login.html">Login</a></span>
                 </div>
+                <div class="" style="margin-bottom:1.25rem">
+                    <button class="btn btn-secondary btn-lg" id="request_demo">
+                        Request Demo
+                    </button>
+                </div>
+                <div class="give_feedback" style="margin-bottom:1.25rem">
+                    <button class="btn btn-dark btn-lg" id="give_feedback">
+                        Give Feedback
+                    </button>
+                </div>
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <span class="title-card"> To-do List </span>
@@ -292,12 +306,6 @@
                 </div>
                 <div class="error"></div>
                 <div class="clear__all btn btn-danger btn-lg d-none">Clear All</div>
-
-                <div class="" style="width: 1140px">
-                    <button class="btn btn-secondary btn-lg" id="request_demo">
-                        Request Demo
-                    </button>
-                </div>
             </div>
         </div>
     </div>
