@@ -75,8 +75,26 @@
         mixpanel.init('bef7fcbffd15957c7539165e19bd8fe2', {
             debug: true
         });
-
-        function giveFeedback(infor) {}
+        // get the value of plan to set super property
+        // Thật ra chỉ cần đăng ký 1 lần thôi, nhưng để đảm bảo tính chính xác (tức là event nào cũng có), mình sẽ đăng ký ở mỗi file html nào có event
+        let accounts = [];
+        const getAccounts = localStorage.getItem("accounts");
+        if (getAccounts) accounts = JSON.parse(getAccounts);
+        mixpanel.register({
+            "Plan Type": accounts[0].plan
+        });
+        let username = localStorage.getItem("name");
+        mixpanel.identify(username);
+        function giveFeedback(feedback) {
+            mixpanel.track('Feedback', {
+                'Feedback ID': feedback.id,
+                'Feedback Review': feedback.content,
+                'Date Feedback': new Date().toISOString(),
+                'App Score': feedback.score
+            });
+            //Incrementing Numeric Properties, the default is to increment by 1
+            mixpanel.people.increment("Number Of Feedbacks");
+        }
     </script>
 </head>
 
@@ -91,16 +109,22 @@
             <div class="star"></div>
             <div class="star"></div>
             <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
         </div>
-        <h1 class="rating">0/5</h1>
+        <h1 class="rating">0/10</h1>
         <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">Your review</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+            <label for="review" class="form-label">Your review</label>
+            <textarea class="form-control" id="review-app" rows="5"></textarea>
         </div>
 
         <button class="btn btn-primary" style="margin-top: 10px" id="submit">Send Feedback</button>
     </div>
     <script>
+        let scoreFeedback = 0;
         let stars = document.querySelectorAll(".star");
         document.querySelector(".star-container").addEventListener("click", starRating);
         let rating = document.querySelector(".rating");
@@ -110,11 +134,39 @@
             const i = [...stars].indexOf(e.target);
             if (i > -1) {
                 stars[i].classList.add("star__checked");
-                rating.textContent = `${stars.length - i}/5`;
+                rating.textContent = `${stars.length - i}/10`;
+                // console.log(stars.length - i);
+                scoreFeedback = stars.length - i;
             } else {
-                rating.textContent = `${0}/5`;
+                rating.textContent = `${0}/10`;
             }
+            return scoreFeedback;
         }
+
+        const reviewArea = document.getElementById("review-app")
+        let reviewContent = ''
+        console.log(reviewArea.value);
+        const submit = document.getElementById("submit")
+        reviewArea.addEventListener('input', (e) => {
+            reviewContent = e.target.value
+            //console.log(reviewContent)
+        })
+        submit.addEventListener("click", () => {
+            if(reviewContent === '' || reviewContent == null) {
+                alert("Please enter your review")
+                return
+            } else {
+                const reviewObj = {
+                    id: Math.floor(Math.random() * 100000000),
+                    content: reviewContent,
+                    score: scoreFeedback
+                }
+                console.log(reviewObj);
+                giveFeedback(reviewObj);
+                // alert("Thank you for your feedback")
+                window.location.href = "index.html";
+            }
+        })
     </script>
 </body>
 

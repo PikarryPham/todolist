@@ -141,7 +141,8 @@ body {
 
 .star-container {
     display: flex;
-    width: 160px;
+    /* width: 160px; */
+    width: 340px;
     flex-direction: row-reverse;
 }
 
